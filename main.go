@@ -1,8 +1,5 @@
 package main
 
-// Version is set during build using ldflags
-var Version = "dev"
-
 import (
         "bufio"
         "fmt"
@@ -15,6 +12,9 @@ import (
         "go-interface-enum-explorer/examples"
         "go-interface-enum-explorer/utils"
 )
+
+// Version is set during build using ldflags
+var Version = "dev"
 
 // Tutorial topics organized by category and complexity
 var topics = map[string][]string{
@@ -80,6 +80,7 @@ func main() {
 
 func displayWelcome() {
         utils.PrintColoredTitle("Welcome to Go Interface & Enum Explorer", utils.ColorCyan)
+        fmt.Printf("Version: %s\n\n", Version)
         fmt.Println("This interactive tool will help you learn about interfaces and enums in Go.")
         fmt.Println("You'll see examples ranging from basic concepts to advanced usage patterns.")
         fmt.Println("\nEach example includes:")

@@ -88,6 +88,31 @@ This progression builds on previous concepts to provide a comprehensive understa
 
 Contributions are welcome! If you'd like to add more examples, improve explanations, or fix issues, please feel free to submit a pull request.
 
+### GitHub Actions
+
+This project includes GitHub Actions workflows for continuous integration:
+
+1. **Build Workflow**: Runs on every push to main/master and pull requests, ensuring the code builds correctly.
+   - Runs `go build`, `go test`, and code quality checks
+   - Automatically uses the Go version specified in go.mod
+
+2. **Release Workflow**: Triggered when a tag starting with 'v' is pushed.
+   - Builds binaries for Linux, macOS, and Windows
+   - Creates a GitHub Release with the binaries attached
+   - Sets version information in the binaries
+   - Automatically uses the Go version specified in go.mod
+
+### Creating a Release
+
+To create a new release:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+This will trigger the release workflow, which builds binaries and creates a GitHub Release.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
