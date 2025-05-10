@@ -1,14 +1,14 @@
 package examples
 
 import (
-        "fmt"
+	"fmt"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // IotaEnums demonstrates using iota for creating sequential enum values
 func IotaEnums() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 IOTA ENUMS IN GO
 ==============
 
@@ -23,7 +23,7 @@ Key points:
 - Constants remain at their assigned values even if reordered
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // Weekday represents days of the week
 type Weekday int
 
@@ -107,88 +107,88 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        // Weekday type and constants
-        type Weekday int
+	// Actual implementation
+	// Weekday type and constants
+	type Weekday int
 
-        const (
-                Sunday Weekday = iota
-                Monday
-                Tuesday
-                Wednesday
-                Thursday
-                Friday
-                Saturday
-        )
+	const (
+		Sunday Weekday = iota
+		Monday
+		Tuesday
+		Wednesday
+		Thursday
+		Friday
+		Saturday
+	)
 
-        // LogLevel type and constants
-        type LogLevel int
+	// LogLevel type and constants
+	type LogLevel int
 
-        const (
-                LogDebug LogLevel = iota * 10
-                LogInfo
-                LogWarning
-                LogError
-                LogFatal
-        )
+	const (
+		LogDebug LogLevel = iota * 10
+		LogInfo
+		LogWarning
+		LogError
+		LogFatal
+	)
 
-        // BitFlag type and constants
-        type BitFlag uint
+	// BitFlag type and constants
+	type BitFlag uint
 
-        const (
-                ReadPermission BitFlag = 1 << iota
-                WritePermission
-                ExecutePermission
-        )
+	const (
+		ReadPermission BitFlag = 1 << iota
+		WritePermission
+		ExecutePermission
+	)
 
-        // IsWeekend function
-        isWeekend := func(day Weekday) bool {
-                return day == Sunday || day == Saturday
-        }
+	// IsWeekend function
+	isWeekend := func(day Weekday) bool {
+		return day == Sunday || day == Saturday
+	}
 
-        // ShouldLog function
-        shouldLog := func(messageLevel, configuredLevel LogLevel) bool {
-                return messageLevel >= configuredLevel
-        }
+	// ShouldLog function
+	shouldLog := func(messageLevel, configuredLevel LogLevel) bool {
+		return messageLevel >= configuredLevel
+	}
 
-        // CheckPermissions function
-        checkPermissions := func(granted, required BitFlag) bool {
-                return granted&required == required
-        }
+	// CheckPermissions function
+	checkPermissions := func(granted, required BitFlag) bool {
+		return granted&required == required
+	}
 
-        // Now actually use the code
-        utils.PrintOutput("Running the code...")
-        
-        // Using weekday enum
-        today := Monday
-        fmt.Printf("Today is %d. Is it a weekend? %v\n", today, isWeekend(today))
-        weekend := Saturday
-        fmt.Printf("Saturday is %d. Is it a weekend? %v\n", weekend, isWeekend(weekend))
-        
-        // Using log level enum
-        systemLevel := LogInfo
-        fmt.Println("\nLog level configured to:", systemLevel)
-        fmt.Printf("Debug message (level %d) will be logged: %v\n", 
-                LogDebug, shouldLog(LogDebug, systemLevel))
-        fmt.Printf("Info message (level %d) will be logged: %v\n", 
-                LogInfo, shouldLog(LogInfo, systemLevel))
-        fmt.Printf("Error message (level %d) will be logged: %v\n", 
-                LogError, shouldLog(LogError, systemLevel))
-        
-        // Using bit flag enum
-        userPermissions := ReadPermission | WritePermission
-        fmt.Println("\nUser permissions:", userPermissions)
-        
-        fmt.Printf("Has read permission: %v\n", 
-                checkPermissions(userPermissions, ReadPermission))
-        fmt.Printf("Has write permission: %v\n", 
-                checkPermissions(userPermissions, WritePermission))
-        fmt.Printf("Has execute permission: %v\n", 
-                checkPermissions(userPermissions, ExecutePermission))
-        fmt.Printf("Has read+write permissions: %v\n", 
-                checkPermissions(userPermissions, ReadPermission|WritePermission))
+	// Now actually use the code
+	utils.PrintOutput("Running the code...")
 
-        utils.PrintKey(`
+	// Using weekday enum
+	today := Monday
+	fmt.Printf("Today is %d. Is it a weekend? %v\n", today, isWeekend(today))
+	weekend := Saturday
+	fmt.Printf("Saturday is %d. Is it a weekend? %v\n", weekend, isWeekend(weekend))
+
+	// Using log level enum
+	systemLevel := LogInfo
+	fmt.Println("\nLog level configured to:", systemLevel)
+	fmt.Printf("Debug message (level %d) will be logged: %v\n",
+		LogDebug, shouldLog(LogDebug, systemLevel))
+	fmt.Printf("Info message (level %d) will be logged: %v\n",
+		LogInfo, shouldLog(LogInfo, systemLevel))
+	fmt.Printf("Error message (level %d) will be logged: %v\n",
+		LogError, shouldLog(LogError, systemLevel))
+
+	// Using bit flag enum
+	userPermissions := ReadPermission | WritePermission
+	fmt.Println("\nUser permissions:", userPermissions)
+
+	fmt.Printf("Has read permission: %v\n",
+		checkPermissions(userPermissions, ReadPermission))
+	fmt.Printf("Has write permission: %v\n",
+		checkPermissions(userPermissions, WritePermission))
+	fmt.Printf("Has execute permission: %v\n",
+		checkPermissions(userPermissions, ExecutePermission))
+	fmt.Printf("Has read+write permissions: %v\n",
+		checkPermissions(userPermissions, ReadPermission|WritePermission))
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - iota provides an automatic way to create sequential constants
 - Type safety is improved by using custom types for enums

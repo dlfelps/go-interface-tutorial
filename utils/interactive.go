@@ -26,20 +26,20 @@ func GetUserChoice(prompt string, options []string) (int, error) {
 	for i, option := range options {
 		fmt.Printf("%d. %s\n", i+1, option)
 	}
-	
+
 	input := GetUserInput(prompt)
-	
+
 	// Try to convert the input to an integer
 	var choice int
 	_, err := fmt.Sscanf(input, "%d", &choice)
 	if err != nil {
 		return 0, err
 	}
-	
+
 	// Check if the choice is valid
 	if choice < 1 || choice > len(options) {
 		return 0, fmt.Errorf("invalid choice: %d", choice)
 	}
-	
+
 	return choice, nil
 }

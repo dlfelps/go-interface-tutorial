@@ -1,46 +1,46 @@
 package examples
 
 import (
-        "fmt"
+	"fmt"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // Define Animal interface for the TypeAssertion example
 type AssertAnimal interface {
-        Speak() string
+	Speak() string
 }
 
 // Define Dog for the TypeAssertion example
 type AssertDog struct {
-        Breed string
+	Breed string
 }
 
 func (d AssertDog) Speak() string {
-        return "Woof!"
+	return "Woof!"
 }
 
 // Define Cat for the TypeAssertion example
 type AssertCat struct {
-        Color string
+	Color string
 }
 
 func (c AssertCat) Speak() string {
-        return "Meow!"
+	return "Meow!"
 }
 
 // Define Duck for the TypeAssertion example
 type AssertDuck struct {
-        Habitat string
+	Habitat string
 }
 
 func (d AssertDuck) Speak() string {
-        return "Quack!"
+	return "Quack!"
 }
 
 // TypeAssertion demonstrates how to extract and use concrete types from interfaces
 func TypeAssertion() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 TYPE ASSERTIONS AND TYPE SWITCHES IN GO
 =====================================
 
@@ -62,7 +62,7 @@ Key points:
 - Both are essential for working with interfaces effectively
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // Simple hierarchy using interfaces
 type Animal interface {
         Speak() string
@@ -157,69 +157,69 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        utils.PrintOutput("Running the code...")
-        
-        // Function for type assertion with comma-ok
-        animalDetail := func(a AssertAnimal) {
-                // Type assertion with "comma ok" idiom
-                if dog, ok := a.(AssertDog); ok {
-                        fmt.Printf("Dog of breed: %s\n", dog.Breed)
-                } else if cat, ok := a.(AssertCat); ok {
-                        fmt.Printf("Cat of color: %s\n", cat.Color)
-                } else {
-                        fmt.Println("Unknown animal type")
-                }
-        }
+	// Actual implementation
+	utils.PrintOutput("Running the code...")
 
-        // Function for type switching
-        describeAnimal := func(a AssertAnimal) {
-                fmt.Printf("Animal says: %s\n", a.Speak())
-                
-                // Type switch
-                switch v := a.(type) {
-                case AssertDog:
-                        fmt.Printf("This is a %s dog\n", v.Breed)
-                case AssertCat:
-                        fmt.Printf("This is a %s cat\n", v.Color)
-                case AssertDuck:
-                        fmt.Printf("This is a duck that lives in %s\n", v.Habitat)
-                default:
-                        fmt.Println("This is an unknown animal type")
-                }
-        }
-        
-        // Create some animals
-        animals := []AssertAnimal{
-                AssertDog{Breed: "Labrador"},
-                AssertCat{Color: "Black"},
-                AssertDuck{Habitat: "Pond"},
-        }
-        
-        // Demonstrate type assertion
-        fmt.Println("Using type assertion:")
-        for _, animal := range animals {
-                animalDetail(animal)
-        }
-        
-        // Demonstrate type switch
-        fmt.Println("\nUsing type switch:")
-        for _, animal := range animals {
-                describeAnimal(animal)
-        }
-        
-        // Demonstrate safe type assertion
-        fmt.Println("\nSafe vs. unsafe type assertion:")
-        var a AssertAnimal = AssertDog{Breed: "Poodle"}
-        
-        // Safe - using comma ok idiom
-        if cat, ok := a.(AssertCat); ok {
-                fmt.Printf("Cat color: %s\n", cat.Color)
-        } else {
-                fmt.Println("Not a cat")
-        }
+	// Function for type assertion with comma-ok
+	animalDetail := func(a AssertAnimal) {
+		// Type assertion with "comma ok" idiom
+		if dog, ok := a.(AssertDog); ok {
+			fmt.Printf("Dog of breed: %s\n", dog.Breed)
+		} else if cat, ok := a.(AssertCat); ok {
+			fmt.Printf("Cat of color: %s\n", cat.Color)
+		} else {
+			fmt.Println("Unknown animal type")
+		}
+	}
 
-        utils.PrintKey(`
+	// Function for type switching
+	describeAnimal := func(a AssertAnimal) {
+		fmt.Printf("Animal says: %s\n", a.Speak())
+
+		// Type switch
+		switch v := a.(type) {
+		case AssertDog:
+			fmt.Printf("This is a %s dog\n", v.Breed)
+		case AssertCat:
+			fmt.Printf("This is a %s cat\n", v.Color)
+		case AssertDuck:
+			fmt.Printf("This is a duck that lives in %s\n", v.Habitat)
+		default:
+			fmt.Println("This is an unknown animal type")
+		}
+	}
+
+	// Create some animals
+	animals := []AssertAnimal{
+		AssertDog{Breed: "Labrador"},
+		AssertCat{Color: "Black"},
+		AssertDuck{Habitat: "Pond"},
+	}
+
+	// Demonstrate type assertion
+	fmt.Println("Using type assertion:")
+	for _, animal := range animals {
+		animalDetail(animal)
+	}
+
+	// Demonstrate type switch
+	fmt.Println("\nUsing type switch:")
+	for _, animal := range animals {
+		describeAnimal(animal)
+	}
+
+	// Demonstrate safe type assertion
+	fmt.Println("\nSafe vs. unsafe type assertion:")
+	var a AssertAnimal = AssertDog{Breed: "Poodle"}
+
+	// Safe - using comma ok idiom
+	if cat, ok := a.(AssertCat); ok {
+		fmt.Printf("Cat color: %s\n", cat.Color)
+	} else {
+		fmt.Println("Not a cat")
+	}
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - Type assertions (x.(T)) extract concrete types from interfaces
 - The "comma ok" idiom (value, ok := x.(T)) provides safe type assertion

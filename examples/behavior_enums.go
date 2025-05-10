@@ -1,131 +1,131 @@
 package examples
 
 import (
-        "fmt"
+	"fmt"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // Define PaymentMethod for the BehaviorEnums example
 type BehPaymentMethod int
 
 const (
-        BehCreditCard BehPaymentMethod = iota
-        BehPayPal
-        BehBankTransfer
-        BehCryptocurrency
+	BehCreditCard BehPaymentMethod = iota
+	BehPayPal
+	BehBankTransfer
+	BehCryptocurrency
 )
 
 func (p BehPaymentMethod) String() string {
-        names := []string{
-                "Credit Card",
-                "PayPal",
-                "Bank Transfer",
-                "Cryptocurrency",
-        }
-        
-        if int(p) < len(names) {
-                return names[int(p)]
-        }
-        return fmt.Sprintf("Unknown Payment Method(%d)", p)
+	names := []string{
+		"Credit Card",
+		"PayPal",
+		"Bank Transfer",
+		"Cryptocurrency",
+	}
+
+	if int(p) < len(names) {
+		return names[int(p)]
+	}
+	return fmt.Sprintf("Unknown Payment Method(%d)", p)
 }
 
 func (p BehPaymentMethod) ProcessingFee() float64 {
-        switch p {
-        case BehCreditCard:
-                return 0.029 // 2.9%
-        case BehPayPal:
-                return 0.039 // 3.9%
-        case BehBankTransfer:
-                return 0.015 // 1.5%
-        case BehCryptocurrency:
-                return 0.01 // 1.0%
-        default:
-                return 0.05 // Default 5% for unknown methods
-        }
+	switch p {
+	case BehCreditCard:
+		return 0.029 // 2.9%
+	case BehPayPal:
+		return 0.039 // 3.9%
+	case BehBankTransfer:
+		return 0.015 // 1.5%
+	case BehCryptocurrency:
+		return 0.01 // 1.0%
+	default:
+		return 0.05 // Default 5% for unknown methods
+	}
 }
 
 func (p BehPaymentMethod) ProcessingTime() int {
-        switch p {
-        case BehCreditCard, BehPayPal:
-                return 0 // Instant
-        case BehBankTransfer:
-                return 72 // 3 days
-        case BehCryptocurrency:
-                return 1 // 1 hour for confirmations
-        default:
-                return 24 // Default 24 hours
-        }
+	switch p {
+	case BehCreditCard, BehPayPal:
+		return 0 // Instant
+	case BehBankTransfer:
+		return 72 // 3 days
+	case BehCryptocurrency:
+		return 1 // 1 hour for confirmations
+	default:
+		return 24 // Default 24 hours
+	}
 }
 
 func (p BehPaymentMethod) IsInstant() bool {
-        return p.ProcessingTime() == 0
+	return p.ProcessingTime() == 0
 }
 
 // Define Season for the BehaviorEnums example
 type BehSeason int
 
 const (
-        BehSpring BehSeason = iota
-        BehSummer
-        BehAutumn
-        BehWinter
+	BehSpring BehSeason = iota
+	BehSummer
+	BehAutumn
+	BehWinter
 )
 
 func (s BehSeason) String() string {
-        names := []string{"Spring", "Summer", "Autumn", "Winter"}
-        if int(s) < len(names) {
-                return names[int(s)]
-        }
-        return fmt.Sprintf("Unknown Season(%d)", s)
+	names := []string{"Spring", "Summer", "Autumn", "Winter"}
+	if int(s) < len(names) {
+		return names[int(s)]
+	}
+	return fmt.Sprintf("Unknown Season(%d)", s)
 }
 
 func (s BehSeason) MonthsInNorthernHemisphere() []string {
-        switch s {
-        case BehSpring:
-                return []string{"March", "April", "May"}
-        case BehSummer:
-                return []string{"June", "July", "August"}
-        case BehAutumn:
-                return []string{"September", "October", "November"}
-        case BehWinter:
-                return []string{"December", "January", "February"}
-        default:
-                return []string{}
-        }
+	switch s {
+	case BehSpring:
+		return []string{"March", "April", "May"}
+	case BehSummer:
+		return []string{"June", "July", "August"}
+	case BehAutumn:
+		return []string{"September", "October", "November"}
+	case BehWinter:
+		return []string{"December", "January", "February"}
+	default:
+		return []string{}
+	}
 }
 
 func (s BehSeason) AverageTemperature(region string) string {
-        switch region {
-        case "Northern Europe":
-                switch s {
-                case BehSpring:
-                        return "5°C to 15°C"
-                case BehSummer:
-                        return "15°C to 25°C"
-                case BehAutumn:
-                        return "5°C to 15°C"
-                case BehWinter:
-                        return "-5°C to 5°C"
-                }
-        case "Mediterranean":
-                switch s {
-                case BehSpring:
-                        return "15°C to 20°C"
-                case BehSummer:
-                        return "25°C to 35°C"
-                case BehAutumn:
-                        return "15°C to 25°C"
-                case BehWinter:
-                        return "5°C to 15°C"
-                }
-        }
-        return "Temperature data not available"
+	switch region {
+	case "Northern Europe":
+		switch s {
+		case BehSpring:
+			return "5°C to 15°C"
+		case BehSummer:
+			return "15°C to 25°C"
+		case BehAutumn:
+			return "5°C to 15°C"
+		case BehWinter:
+			return "-5°C to 5°C"
+		}
+	case "Mediterranean":
+		switch s {
+		case BehSpring:
+			return "15°C to 20°C"
+		case BehSummer:
+			return "25°C to 35°C"
+		case BehAutumn:
+			return "15°C to 25°C"
+		case BehWinter:
+			return "5°C to 15°C"
+		}
+	}
+	return "Temperature data not available"
 }
 
 // BehaviorEnums demonstrates adding behavior directly to enum values
 func BehaviorEnums() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 BEHAVIOR ENUMS IN GO
 ==================
 
@@ -141,7 +141,7 @@ Key points:
 - Particularly useful for domain-specific logic
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // PaymentMethod represents different ways to pay for an order
 type PaymentMethod int
 
@@ -308,48 +308,48 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        utils.PrintOutput("Running the code...")
-        
-        // Using PaymentMethod enums with behavior
-        fmt.Println("Payment Method Examples:")
-        
-        paymentMethods := []BehPaymentMethod{
-                BehCreditCard,
-                BehPayPal,
-                BehBankTransfer,
-                BehCryptocurrency,
-        }
-        
-        // Calculating payment for a $100 order with different methods
-        orderAmount := 100.0
-        
-        fmt.Println("Payment options for a $100 order:")
-        for _, method := range paymentMethods {
-                fee := method.ProcessingFee() * orderAmount
-                total := orderAmount + fee
-                
-                fmt.Printf("- %s:\n", method)
-                fmt.Printf("  Processing fee: $%.2f (%.1f%%)\n", fee, method.ProcessingFee()*100)
-                fmt.Printf("  Total amount: $%.2f\n", total)
-                fmt.Printf("  Processing time: %d hours (Instant: %v)\n", 
-                        method.ProcessingTime(), method.IsInstant())
-        }
-        
-        // Using Season enums with behavior
-        fmt.Println("\nSeason Examples:")
-        
-        for season := BehSpring; season <= BehWinter; season++ {
-                fmt.Printf("Season: %s\n", season)
-                fmt.Printf("  Months (Northern Hemisphere): %v\n", 
-                        season.MonthsInNorthernHemisphere())
-                fmt.Printf("  Temperature in Northern Europe: %s\n", 
-                        season.AverageTemperature("Northern Europe"))
-                fmt.Printf("  Temperature in Mediterranean: %s\n", 
-                        season.AverageTemperature("Mediterranean"))
-        }
+	// Actual implementation
+	utils.PrintOutput("Running the code...")
 
-        utils.PrintKey(`
+	// Using PaymentMethod enums with behavior
+	fmt.Println("Payment Method Examples:")
+
+	paymentMethods := []BehPaymentMethod{
+		BehCreditCard,
+		BehPayPal,
+		BehBankTransfer,
+		BehCryptocurrency,
+	}
+
+	// Calculating payment for a $100 order with different methods
+	orderAmount := 100.0
+
+	fmt.Println("Payment options for a $100 order:")
+	for _, method := range paymentMethods {
+		fee := method.ProcessingFee() * orderAmount
+		total := orderAmount + fee
+
+		fmt.Printf("- %s:\n", method)
+		fmt.Printf("  Processing fee: $%.2f (%.1f%%)\n", fee, method.ProcessingFee()*100)
+		fmt.Printf("  Total amount: $%.2f\n", total)
+		fmt.Printf("  Processing time: %d hours (Instant: %v)\n",
+			method.ProcessingTime(), method.IsInstant())
+	}
+
+	// Using Season enums with behavior
+	fmt.Println("\nSeason Examples:")
+
+	for season := BehSpring; season <= BehWinter; season++ {
+		fmt.Printf("Season: %s\n", season)
+		fmt.Printf("  Months (Northern Hemisphere): %v\n",
+			season.MonthsInNorthernHemisphere())
+		fmt.Printf("  Temperature in Northern Europe: %s\n",
+			season.AverageTemperature("Northern Europe"))
+		fmt.Printf("  Temperature in Mediterranean: %s\n",
+			season.AverageTemperature("Mediterranean"))
+	}
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - Adding methods to enum types creates "rich enums" with behavior
 - Behavior related to an enum value is encapsulated with the value itself

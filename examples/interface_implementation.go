@@ -1,50 +1,50 @@
 package examples
 
 import (
-        "fmt"
-        "strings"
+	"fmt"
+	"strings"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // Define Writer interface for the InterfaceImplementation example
 type ImplWriter interface {
-        Write(data string) (int, error)
+	Write(data string) (int, error)
 }
 
 // Define ConsoleWriter for the InterfaceImplementation example
 type ImplConsoleWriter struct {
-        Prefix string
+	Prefix string
 }
 
 func (cw ImplConsoleWriter) Write(data string) (int, error) {
-        formatted := cw.Prefix + data
-        fmt.Println(formatted)
-        return len(formatted), nil
+	formatted := cw.Prefix + data
+	fmt.Println(formatted)
+	return len(formatted), nil
 }
 
 // Define FileLogger for the InterfaceImplementation example
 type ImplFileLogger struct {
-        FileName string
+	FileName string
 }
 
 func (fl ImplFileLogger) Write(data string) (int, error) {
-        fmt.Printf("[Writing to %s]: %s\n", fl.FileName, data)
-        return len(data), nil
+	fmt.Printf("[Writing to %s]: %s\n", fl.FileName, data)
+	return len(data), nil
 }
 
 // Define UppercaseWriter for the InterfaceImplementation example
 type ImplUppercaseWriter struct {
-        ActualWriter ImplWriter
+	ActualWriter ImplWriter
 }
 
 func (uw ImplUppercaseWriter) Write(data string) (int, error) {
-        return uw.ActualWriter.Write(strings.ToUpper(data))
+	return uw.ActualWriter.Write(strings.ToUpper(data))
 }
 
 // InterfaceImplementation demonstrates how types implement interfaces in Go
 func InterfaceImplementation() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 INTERFACE IMPLEMENTATION IN GO
 =============================
 
@@ -59,7 +59,7 @@ Key points:
 - Methods must match exactly (same name, parameters, and return types)
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // Writer is an interface that defines a Write method
 type Writer interface {
         Write(data string) (int, error)
@@ -128,35 +128,35 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        utils.PrintOutput("Running the code...")
-        
-        // Function that uses the interface
-        writeToSomewhere := func(writer ImplWriter, messages []string) {
-                for _, msg := range messages {
-                        writer.Write(msg)
-                }
-        }
-        
-        // Create instances of different Writers
-        console := ImplConsoleWriter{Prefix: "LOG: "}
-        file := ImplFileLogger{FileName: "app.log"}
-        
-        // Create a composed writer that converts to uppercase
-        uppercaseConsole := ImplUppercaseWriter{ActualWriter: console}
-        
-        messages := []string{"Hello, World!", "Learning Go interfaces", "Composition is powerful"}
-        
-        fmt.Println("Writing to console:")
-        writeToSomewhere(console, messages)
-        
-        fmt.Println("\nWriting to file:")
-        writeToSomewhere(file, messages)
-        
-        fmt.Println("\nWriting uppercase to console:")
-        writeToSomewhere(uppercaseConsole, messages)
+	// Actual implementation
+	utils.PrintOutput("Running the code...")
 
-        utils.PrintKey(`
+	// Function that uses the interface
+	writeToSomewhere := func(writer ImplWriter, messages []string) {
+		for _, msg := range messages {
+			writer.Write(msg)
+		}
+	}
+
+	// Create instances of different Writers
+	console := ImplConsoleWriter{Prefix: "LOG: "}
+	file := ImplFileLogger{FileName: "app.log"}
+
+	// Create a composed writer that converts to uppercase
+	uppercaseConsole := ImplUppercaseWriter{ActualWriter: console}
+
+	messages := []string{"Hello, World!", "Learning Go interfaces", "Composition is powerful"}
+
+	fmt.Println("Writing to console:")
+	writeToSomewhere(console, messages)
+
+	fmt.Println("\nWriting to file:")
+	writeToSomewhere(file, messages)
+
+	fmt.Println("\nWriting uppercase to console:")
+	writeToSomewhere(uppercaseConsole, messages)
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - Both ConsoleWriter and FileLogger implement the Writer interface by providing a Write method
 - The UppercaseWriter shows interface composition by containing another Writer

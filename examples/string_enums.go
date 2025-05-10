@@ -1,85 +1,85 @@
 package examples
 
 import (
-        "fmt"
+	"fmt"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // Define Direction for the StringEnums example
 type StrDirection int
 
 const (
-        StrNorth StrDirection = iota
-        StrEast
-        StrSouth
-        StrWest
+	StrNorth StrDirection = iota
+	StrEast
+	StrSouth
+	StrWest
 )
 
 func (d StrDirection) String() string {
-        switch d {
-        case StrNorth:
-                return "North"
-        case StrEast:
-                return "East"
-        case StrSouth:
-                return "South"
-        case StrWest:
-                return "West"
-        default:
-                return fmt.Sprintf("Unknown Direction(%d)", d)
-        }
+	switch d {
+	case StrNorth:
+		return "North"
+	case StrEast:
+		return "East"
+	case StrSouth:
+		return "South"
+	case StrWest:
+		return "West"
+	default:
+		return fmt.Sprintf("Unknown Direction(%d)", d)
+	}
 }
 
 // Define HttpStatus for the StringEnums example
 type StrHttpStatus int
 
 const (
-        StrStatusOK           StrHttpStatus = 200
-        StrStatusCreated      StrHttpStatus = 201
-        StrStatusBadRequest   StrHttpStatus = 400
-        StrStatusUnauthorized StrHttpStatus = 401
-        StrStatusForbidden    StrHttpStatus = 403
-        StrStatusNotFound     StrHttpStatus = 404
-        StrStatusServerError  StrHttpStatus = 500
+	StrStatusOK           StrHttpStatus = 200
+	StrStatusCreated      StrHttpStatus = 201
+	StrStatusBadRequest   StrHttpStatus = 400
+	StrStatusUnauthorized StrHttpStatus = 401
+	StrStatusForbidden    StrHttpStatus = 403
+	StrStatusNotFound     StrHttpStatus = 404
+	StrStatusServerError  StrHttpStatus = 500
 )
 
 func (s StrHttpStatus) String() string {
-        statusText := map[StrHttpStatus]string{
-                StrStatusOK:           "200 OK",
-                StrStatusCreated:      "201 Created",
-                StrStatusBadRequest:   "400 Bad Request",
-                StrStatusUnauthorized: "401 Unauthorized",
-                StrStatusForbidden:    "403 Forbidden",
-                StrStatusNotFound:     "404 Not Found",
-                StrStatusServerError:  "500 Internal Server Error",
-        }
-        
-        if text, exists := statusText[s]; exists {
-                return text
-        }
-        return fmt.Sprintf("Unknown Status(%d)", s)
+	statusText := map[StrHttpStatus]string{
+		StrStatusOK:           "200 OK",
+		StrStatusCreated:      "201 Created",
+		StrStatusBadRequest:   "400 Bad Request",
+		StrStatusUnauthorized: "401 Unauthorized",
+		StrStatusForbidden:    "403 Forbidden",
+		StrStatusNotFound:     "404 Not Found",
+		StrStatusServerError:  "500 Internal Server Error",
+	}
+
+	if text, exists := statusText[s]; exists {
+		return text
+	}
+	return fmt.Sprintf("Unknown Status(%d)", s)
 }
 
 func (s StrHttpStatus) IsSuccess() bool {
-        return s >= 200 && s < 300
+	return s >= 200 && s < 300
 }
 
 func (s StrHttpStatus) IsError() bool {
-        return s >= 400
+	return s >= 400
 }
 
 func (s StrHttpStatus) IsClientError() bool {
-        return s >= 400 && s < 500
+	return s >= 400 && s < 500
 }
 
 func (s StrHttpStatus) IsServerError() bool {
-        return s >= 500
+	return s >= 500
 }
 
 // StringEnums demonstrates adding string representation to enum values
 func StringEnums() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 STRING ENUMS IN GO
 ================
 
@@ -95,7 +95,7 @@ Key points:
 - Useful for logging, debugging, and user interfaces
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // Direction represents a cardinal direction
 type Direction int
 
@@ -212,42 +212,42 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        utils.PrintOutput("Running the code...")
-        
-        // Using Direction enum with string representation
-        fmt.Println("Direction examples:")
-        
-        // Creating and displaying enum values
-        heading := StrNorth
-        fmt.Printf("Current heading: %v\n", heading)
-        
-        // The String() method is automatically called when printing
-        fmt.Printf("Turning right to %v\n", StrEast)
-        fmt.Printf("Continuing to %v\n", StrSouth)
-        fmt.Printf("Finally turning to %v\n", StrWest)
-        
-        // Using HttpStatus with string representation and behavior
-        fmt.Println("\nHTTP Status examples:")
-        
-        // Simulating some responses
-        responses := []StrHttpStatus{
-                StrStatusOK,
-                StrStatusCreated,
-                StrStatusBadRequest,
-                StrStatusNotFound,
-                StrStatusServerError,
-        }
-        
-        for _, status := range responses {
-                // The String() method is called automatically in formatting
-                fmt.Printf("Response status: %v\n", status)
-                fmt.Printf("  Is success: %v\n", status.IsSuccess())
-                fmt.Printf("  Is client error: %v\n", status.IsClientError())
-                fmt.Printf("  Is server error: %v\n", status.IsServerError())
-        }
+	// Actual implementation
+	utils.PrintOutput("Running the code...")
 
-        utils.PrintKey(`
+	// Using Direction enum with string representation
+	fmt.Println("Direction examples:")
+
+	// Creating and displaying enum values
+	heading := StrNorth
+	fmt.Printf("Current heading: %v\n", heading)
+
+	// The String() method is automatically called when printing
+	fmt.Printf("Turning right to %v\n", StrEast)
+	fmt.Printf("Continuing to %v\n", StrSouth)
+	fmt.Printf("Finally turning to %v\n", StrWest)
+
+	// Using HttpStatus with string representation and behavior
+	fmt.Println("\nHTTP Status examples:")
+
+	// Simulating some responses
+	responses := []StrHttpStatus{
+		StrStatusOK,
+		StrStatusCreated,
+		StrStatusBadRequest,
+		StrStatusNotFound,
+		StrStatusServerError,
+	}
+
+	for _, status := range responses {
+		// The String() method is called automatically in formatting
+		fmt.Printf("Response status: %v\n", status)
+		fmt.Printf("  Is success: %v\n", status.IsSuccess())
+		fmt.Printf("  Is client error: %v\n", status.IsClientError())
+		fmt.Printf("  Is server error: %v\n", status.IsServerError())
+	}
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - Adding String() methods implements the fmt.Stringer interface for automatic string conversion
 - String representations make enums more readable in logs and debugging

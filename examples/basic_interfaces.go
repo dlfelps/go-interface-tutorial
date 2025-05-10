@@ -1,47 +1,47 @@
 package examples
 
 import (
-        "fmt"
+	"fmt"
 
-        "go-interface-enum-explorer/utils"
+	"go-interface-enum-explorer/utils"
 )
 
 // Define Shape interface for the BasicInterfaces example
 type BasicShape interface {
-        Area() float64
-        Perimeter() float64
+	Area() float64
+	Perimeter() float64
 }
 
 // Define Rectangle for the BasicInterfaces example
 type BasicRectangle struct {
-        Width  float64
-        Height float64
+	Width  float64
+	Height float64
 }
 
 func (r BasicRectangle) Area() float64 {
-        return r.Width * r.Height
+	return r.Width * r.Height
 }
 
 func (r BasicRectangle) Perimeter() float64 {
-        return 2 * (r.Width + r.Height)
+	return 2 * (r.Width + r.Height)
 }
 
 // Define Circle for the BasicInterfaces example
 type BasicCircle struct {
-        Radius float64
+	Radius float64
 }
 
 func (c BasicCircle) Area() float64 {
-        return 3.14159 * c.Radius * c.Radius
+	return 3.14159 * c.Radius * c.Radius
 }
 
 func (c BasicCircle) Perimeter() float64 {
-        return 2 * 3.14159 * c.Radius
+	return 2 * 3.14159 * c.Radius
 }
 
 // BasicInterfaces demonstrates the fundamental concepts of interfaces in Go
 func BasicInterfaces() {
-        utils.PrintExplanation(`
+	utils.PrintExplanation(`
 BASIC INTERFACES IN GO
 =====================
 
@@ -56,7 +56,7 @@ Key points:
 - Interfaces allow for polymorphism in Go
 `)
 
-        utils.PrintCode(`
+	utils.PrintCode(`
 // Shape is an interface that defines a common behavior for shapes
 type Shape interface {
         Area() float64
@@ -117,28 +117,28 @@ func main() {
 }
 `)
 
-        // Actual implementation
-        utils.PrintOutput("Running the code...")
-        
-        // Function that uses the interface
-        printShapeInfo := func(s BasicShape) {
-                fmt.Printf("Area: %.2f\n", s.Area())
-                fmt.Printf("Perimeter: %.2f\n", s.Perimeter())
-        }
-        
-        // Create a Rectangle
-        rect := BasicRectangle{Width: 5, Height: 4}
-        
-        // Create a Circle
-        circle := BasicCircle{Radius: 3}
-        
-        fmt.Println("Rectangle:")
-        printShapeInfo(rect)
-        
-        fmt.Println("\nCircle:")
-        printShapeInfo(circle)
+	// Actual implementation
+	utils.PrintOutput("Running the code...")
 
-        utils.PrintKey(`
+	// Function that uses the interface
+	printShapeInfo := func(s BasicShape) {
+		fmt.Printf("Area: %.2f\n", s.Area())
+		fmt.Printf("Perimeter: %.2f\n", s.Perimeter())
+	}
+
+	// Create a Rectangle
+	rect := BasicRectangle{Width: 5, Height: 4}
+
+	// Create a Circle
+	circle := BasicCircle{Radius: 3}
+
+	fmt.Println("Rectangle:")
+	printShapeInfo(rect)
+
+	fmt.Println("\nCircle:")
+	printShapeInfo(circle)
+
+	utils.PrintKey(`
 KEY TAKEAWAYS:
 - Both Rectangle and Circle implement the Shape interface by providing Area() and Perimeter() methods
 - No explicit declaration is needed to say a type implements an interface
